@@ -8,7 +8,6 @@ async function main() {
   console.log("Products:", products.data);
 }
 
-main().catch((err) => {
-  console.error(err);
+main().catch(() => {
   process.exitCode = 1;
 });

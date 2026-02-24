@@ -9,8 +9,20 @@ export type AlgoliaClientFactory = (warehouse: string) => AxiosInstance;
 export async function createMercadonaNavigator(
   postalCode: string,
 ): Promise<MercadonaNavigator> {
-  const mercadonaClient = createMercadonaClient();
-  const warehouse = await resolveWarehouse(mercadonaClient, postalCode);
-  const algoliaClient = createMercadonaAlgoliaClient(warehouse);
-  return new MercadonaNavigator(mercadonaClient, algoliaClient, warehouse);
+  let mercadonaNavigator: MercadonaNavigator;
+  try {
+    const mercadonaClient = createMercadonaClient();
+    const warehouse = await resolveWarehouse(mercadonaClient, postalCode);
+    const algoliaClient = createMercadonaAlgoliaClient(warehouse);
+    mercadonaNavigator = new MercadonaNavigator(
+      mercadonaClient,
+      algoliaClient,
+      warehouse,
+    );
+  } catch (error: any) {
+    console.error("Error creating MercadonaNavigator:", error.message);
+    throw error;
+  }
+
+  return mercadonaNavigator;
 }
