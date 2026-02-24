@@ -1,5 +1,9 @@
+import "dotenv/config";
+import { resolveWarehouse } from "./mercadona/navigator/warehouseResolver";
+
 async function main() {
-  console.log("Hello, World!");
+  const warehouse = await resolveWarehouse("28001");
+  console.log("Warehouse for postal code 28001:", warehouse);
 }
 
 main().catch((err) => {
