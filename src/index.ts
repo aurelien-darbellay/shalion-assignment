@@ -1,12 +1,11 @@
 import "dotenv/config";
-import { resolveWarehouse } from "./mercadona/navigator/warehouseResolver";
-import { createMercadonaAlgoliaClient } from "./mercadona/axios/algoliaClientFactory";
+import { createMercadonaNavigator } from "./mercadona/navigator/factory/navigatorFactory";
 
 async function main() {
-  const warehouse = await resolveWarehouse("28001");
-  const algoliaClient = createMercadonaAlgoliaClient(warehouse);
-  const response = await algoliaClient.post("", { query: "leche" });
-  console.log("Algolia response:", response.data);
+  const navigator = await createMercadonaNavigator("46001");
+  console.log("Warehouse:", navigator.getWarehouse());
+  const products = await navigator.getProducts("leche");
+  console.log("Products:", products.data);
 }
 
 main().catch((err) => {

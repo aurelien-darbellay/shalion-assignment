@@ -26,7 +26,6 @@ function buildAlgoliaUrl(warehouse: string): string {
 
 export function createMercadonaAlgoliaClient(warehouse: string): AxiosInstance {
   const url = buildAlgoliaUrl(warehouse);
-
   return axios.create({
     baseURL: url,
     method: "POST",
@@ -34,6 +33,8 @@ export function createMercadonaAlgoliaClient(warehouse: string): AxiosInstance {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    timeout: 8000,
+    timeout: process.env.REQUEST_TIMEOUT
+      ? parseInt(process.env.REQUEST_TIMEOUT)
+      : 5000,
   });
 }

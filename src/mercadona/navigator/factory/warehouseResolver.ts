@@ -1,7 +1,10 @@
-import { mercadonaClient } from "../axios/mercadonaClient";
-import { MERCADONA_INFO } from "../config/mercadonaInfo";
+import { AxiosInstance } from "axios";
+import { MERCADONA_INFO } from "../../config/mercadonaInfo";
 
-export async function resolveWarehouse(postalCode: string) {
+export async function resolveWarehouse(
+  mercadonaClient: AxiosInstance,
+  postalCode: string,
+) {
   const response = await mercadonaClient.put(
     MERCADONA_INFO.warehouse.endPoint,
     { new_postal_code: postalCode },
