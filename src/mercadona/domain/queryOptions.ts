@@ -5,7 +5,7 @@ export type CategoryInQuery = {
 
 export type QueryOptions = {
   searchQuery: string;
-  category: CategoryInQuery;
+  category?: CategoryInQuery;
   brands: string[];
 };
 
@@ -36,7 +36,7 @@ export class QueryOptionsBuilder {
   build(): QueryOptions {
     return {
       searchQuery: this.searchQuery,
-      category: this.category,
+      category: this.category ?? undefined,
       brands: this.brands,
     };
   }
