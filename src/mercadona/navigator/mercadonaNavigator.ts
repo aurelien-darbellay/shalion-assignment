@@ -2,8 +2,13 @@ import { AxiosInstance } from "axios";
 import { QueryOptions } from "../domain/queryOptions";
 import { createAlgoliaSearchRequest } from "./query/algoliaSearchRequest";
 import { MercadonaProductListPage } from "../domain/mercadonaProductListPage";
-import { mapAlgoliaResponseToMercadonaProductListPage } from "./query/mapResponseToProductListPage";
+import { mapAlgoliaResponseToMercadonaProductListPage } from "./mappers/mapResponseToProductListPage";
 import { MERCADONA_INFO } from "../config/mercadonaInfo";
+import { mapDetailResponseToMercadonaProduct } from "./mappers/mapDetailResponseToMercadonaProduct";
+import { MercadonaProduct } from "../domain/mercadonaProduct";
+import { MercadonaProductListItem } from "../domain/mercadonaProductListItem";
+import { mapResultsDataToProductListItems } from "./mappers/mapResultsDataToProductListItems";
+import { MercadonaProductPage } from "../domain/mercadonaProductPage";
 
 export class MercadonaNavigator {
   private readonly mercadonaClient: AxiosInstance;
@@ -41,10 +46,30 @@ export class MercadonaNavigator {
     });
   }
 
-  async getProductById(productId: number) {
+  async getProductById(productId: number): Promise<MercadonaProduct> {
     const url = MERCADONA_INFO.productEndpointTemplate
       .replace("{PRODUCT_ID}", String(productId))
       .replace("{WAREHOUSE}", this.warehouse);
-    return await this.mercadonaClient.get(url);
+    const response = await this.mercadonaClient.get(url);
+    return mapDetailResponseToMercadonaProduct(response.data);
+  }
+
+  async getAssociatedProducts(
+    productId: number,
+  ): Promise<MercadonaProductListItem[]> {
+    const url = MERCADONA_INFO.associatedProductsEndpointTemplate
+      .replace("{PRODUCT_ID}", String(productId))
+      .replace("{WAREHOUSE}", this.warehouse);
+    const response = await this.mercadonaClient.get(url);
+    return mapResultsDataToProductListItems(response.data);
+  }
+
+  async getProductPage(productId: number): Promise<MercadonaProductPage> {
+    const product = await this.getProductById(productId);
+    const associatedProducts = await this.getAssociatedProducts(productId);
+    return MercadonaProductPage.fromProductAndAssociated(
+      product,
+      associatedProducts,
+    );
   }
 }
