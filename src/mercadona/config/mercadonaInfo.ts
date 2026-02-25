@@ -1,6 +1,7 @@
 export const MERCADONA_INFO = {
   name: "Mercadona",
   baseUrl: "https://tienda.mercadona.es",
+  productEndpointTemplate: `/api/products/{PRODUCT_ID}/?lang=es&wh={WAREHOUSE}`,
   warehouse: {
     endPoint: "/api/postal-codes/actions/change-pc/",
     header: "x-customer-wh",

@@ -3,6 +3,7 @@ import { QueryOptions } from "../domain/queryOptions";
 import { createAlgoliaSearchRequest } from "./query/algoliaSearchRequest";
 import { MercadonaProductListPage } from "../domain/mercadonaProductListPage";
 import { mapAlgoliaResponseToMercadonaProductListPage } from "./query/mapResponseToProductListPage";
+import { MERCADONA_INFO } from "../config/mercadonaInfo";
 
 export class MercadonaNavigator {
   private readonly mercadonaClient: AxiosInstance;
@@ -38,5 +39,12 @@ export class MercadonaNavigator {
       zipCode: this.zipCode,
       warehouse: this.warehouse,
     });
+  }
+
+  async getProductById(productId: number) {
+    const url = MERCADONA_INFO.productEndpointTemplate
+      .replace("{PRODUCT_ID}", String(productId))
+      .replace("{WAREHOUSE}", this.warehouse);
+    return await this.mercadonaClient.get(url);
   }
 }
