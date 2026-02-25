@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { createMercadonaNavigator } from "./mercadona/navigator/factory/navigatorFactory.js";
 import { testProductsListPage } from "./testProductsListPage.js";
 import { testProductPage } from "./testProductPage.js";

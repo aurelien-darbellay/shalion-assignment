@@ -10,8 +10,8 @@ export const MERCADONA_INFO = {
   algoliaTemplateUrl:
     "https://{APP_ID}-dsn.algolia.net/1/indexes/products_prod_{WAREHOUSE}_es/query?x-algolia-agent={AGENT}&x-algolia-api-key={API_KEY}&x-algolia-application-id={APP_ID}",
   algoliaKeys: {
-    appId: process.env.MERCADONA_ALGIOLA_APP_ID,
-    apiKey: process.env.MERCADONA_ALGIOLA_API_KEY,
-    agent: process.env.MERCADONA_ALGIOLA_AGENT,
+    appId: "7UZJKL1DJ0",
+    apiKey: "9d8f2e39e90df472b4f2e559a116fe17",
+    agent: "Algolia for JavaScript (5.49.0); Search (5.49.0); Browser",
   },
 } as const;

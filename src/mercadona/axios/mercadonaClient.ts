@@ -6,13 +6,12 @@ export const createMercadonaClient = (
 ): AxiosInstance => {
   return axios.create({
     baseURL: MERCADONA_INFO.baseUrl,
-    timeout: process.env.REQUEST_TIMEOUT
-      ? parseInt(process.env.REQUEST_TIMEOUT)
-      : 5000,
+    timeout: 5000,
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      "User-Agent": process.env.USER_AGENT || "ShalionBot/1.0",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
     },
     ...config,
   });
