@@ -33,19 +33,6 @@ cd shalion-Darbellay
 npm install
 ```
 
-3. Create a `.env` file in the root directory with the following variables:
-
-```env
-# Algolia API credentials for Mercadona
-MERCADONA_ALGIOLA_APP_ID="7UZJKL1DJ0"
-MERCADONA_ALGIOLA_API_KEY="9d8f2e39e90df472b4f2e559a116fe17"
-MERCADONA_ALGIOLA_AGENT="Algolia for JavaScript (5.49.0); Search (5.49.0); Browser"
-
-# Other configuration
-REQUEST_TIMEOUT=5000
-USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-```
-
 ## 🚦 Usage
 
 ### Running the Demo
@@ -214,7 +201,6 @@ shalion-Darbellay/
 │               └── mapAssociatedProductResponseToDomain.ts
 ├── package.json
 ├── tsconfig.json
-└── .env
 ```
 
 ## 🏗️ Architecture
