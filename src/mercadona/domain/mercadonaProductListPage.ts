@@ -2,6 +2,7 @@ import { MercadonaProductListItem } from "./mercadonaProductListItem";
 import { QueryOptions } from "./queryOptions";
 import { CategoryTreeNode } from "./embeddedTypes";
 import { buildCategoryTreeFromPaths } from "./helpers/buildCategoryTreeFromItems";
+import { MercadonaProduct } from "./mercadonaProduct";
 
 export class MercadonaProductListPage {
   private readonly _categoryTree: CategoryTreeNode[];
@@ -36,5 +37,13 @@ export class MercadonaProductListPage {
       }
     }
     return [...brands].sort((a, b) => a.localeCompare(b));
+  }
+
+  getProductByPosition(position: number): MercadonaProduct | undefined {
+    return this.items.find((item) => item.position === position)?.product;
+  }
+
+  getProductsByBrand(brand: string): MercadonaProductListItem[] {
+    return this.items.filter((item) => item.product.brand === brand);
   }
 }
