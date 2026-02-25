@@ -169,6 +169,7 @@ console.log(`Found ${hacendadoProducts.length} Hacendado products`);
 ```
 shalion-Darbellay/
 ├── src/
+│   ├── index.ts                     # Barrel API (re-exports)
 │   ├── demo.ts                     # Demo entry point
 │   ├── testProductsListPage.ts      # Demo: Product search
 │   ├── testProductPage.ts           # Demo: Single Product Page
@@ -202,6 +203,8 @@ shalion-Darbellay/
 ├── package.json
 ├── tsconfig.json
 ```
+
+> **Note on Barrel API**: The `index.ts` file serves as a barrel re-export module. The specific public API surface (what gets exported) has been left for further development to determine the ideal module exports based on consumer needs.
 
 ## 🏗️ Architecture
 
