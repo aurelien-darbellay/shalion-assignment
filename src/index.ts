@@ -5,7 +5,7 @@ import { testProductPage } from "./testProductPage";
 
 async function main() {
   const navigator = await createMercadonaNavigator("08024");
-  //await testProductsListPage(navigator);
+  await testProductsListPage(navigator);
   await testProductPage(navigator);
 }
 

@@ -2,12 +2,12 @@ import { AxiosInstance } from "axios";
 import { QueryOptions } from "../domain/queryOptions";
 import { createAlgoliaSearchRequest } from "./query/algoliaSearchRequest";
 import { MercadonaProductListPage } from "../domain/mercadonaProductListPage";
-import { mapAlgoliaResponseToMercadonaProductListPage } from "./mappers/mapResponseToProductListPage";
+import { mapAlgoliaResponseToMercadonaProductListPage } from "./mappers/mapAlgoliaResponseToProductListPage";
 import { MERCADONA_INFO } from "../config/mercadonaInfo";
-import { mapDetailResponseToMercadonaProduct } from "./mappers/mapDetailResponseToMercadonaProduct";
+import { mapSingleProductReponseToDomain } from "./mappers/mapSingleProductResponseToDomain";
 import { MercadonaProduct } from "../domain/mercadonaProduct";
 import { MercadonaProductListItem } from "../domain/mercadonaProductListItem";
-import { mapResultsDataToProductListItems } from "./mappers/mapResultsDataToProductListItems";
+import { mapAssociatedProductResponseToDomain } from "./mappers/mapAssociatedProductResponseToDomain";
 import { MercadonaProductPage } from "../domain/mercadonaProductPage";
 
 export class MercadonaNavigator {
@@ -51,7 +51,7 @@ export class MercadonaNavigator {
       .replace("{PRODUCT_ID}", String(productId))
       .replace("{WAREHOUSE}", this.warehouse);
     const response = await this.mercadonaClient.get(url);
-    return mapDetailResponseToMercadonaProduct(response.data);
+    return mapSingleProductReponseToDomain(response.data);
   }
 
   async getAssociatedProducts(
@@ -61,7 +61,7 @@ export class MercadonaNavigator {
       .replace("{PRODUCT_ID}", String(productId))
       .replace("{WAREHOUSE}", this.warehouse);
     const response = await this.mercadonaClient.get(url);
-    return mapResultsDataToProductListItems(response.data);
+    return mapAssociatedProductResponseToDomain(response.data);
   }
 
   async getProductPage(productId: number): Promise<MercadonaProductPage> {

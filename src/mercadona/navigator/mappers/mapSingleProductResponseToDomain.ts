@@ -1,9 +1,7 @@
 import { MercadonaProduct } from "../../domain/mercadonaProduct";
 import { extractCategoryPaths } from "./extractCategoryPaths";
 
-export function mapDetailResponseToMercadonaProduct(
-  data: any,
-): MercadonaProduct {
+export function mapSingleProductReponseToDomain(data: any): MercadonaProduct {
   return {
     id: data.id,
     slug: data.slug,

@@ -1,6 +1,6 @@
 import { MercadonaProductListItem } from "../../domain/mercadonaProductListItem";
 
-export function mapResultsDataToProductListItems(
+export function mapAssociatedProductResponseToDomain(
   data: any,
 ): MercadonaProductListItem[] {
   return data.results.map((item: any, index: number) => ({
