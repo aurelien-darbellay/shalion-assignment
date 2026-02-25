@@ -241,16 +241,6 @@ Automatically determines the correct warehouse based on postal code, ensuring ac
 - **Mercadona Client**: Configured for direct API calls to tienda.mercadona.es/api
 - **Algolia Client**: Configured for product search via Mercadona's Algolia integration
 
-## 🔧 Configuration
-
-The project uses environment variables for configuration. See `.env` file for:
-
-- **MERCADONA_ALGIOLA_APP_ID**: Algolia application ID
-- **MERCADONA_ALGIOLA_API_KEY**: Algolia API key
-- **MERCADONA_ALGIOLA_AGENT**: Algolia agent string
-- **REQUEST_TIMEOUT**: HTTP request timeout in milliseconds (default: 5000)
-- **USER_AGENT**: Custom User-Agent header for requests (default: "ShalionBot/1.0")
-
 ## 📊 API Endpoints Used
 
 - **Warehouse Resolution**: `PUT /postal-codes/actions/change-pc/`
