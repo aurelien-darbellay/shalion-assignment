@@ -5,16 +5,11 @@ export type MercadonaProduct = {
   id: string;
   slug: string;
 
-  name: string; // display_name
+  name: string;
   brand?: string;
 
-  productUrl: string; // share_url
-  imageUrl?: string; // thumbnail
-
-  packaging?: string;
-  purchaseLimit?: number; // limit
-  published: boolean;
-
+  productUrl: string;
+  imageUrl?: string;
   categoryPaths: CategoryPath[];
 
   price: ProductPrice;
