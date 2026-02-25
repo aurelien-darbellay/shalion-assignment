@@ -6,7 +6,7 @@ export type CategoryNode = {
 };
 
 export type CategoryPath = {
-  nodes: CategoryNode[]; // root → leaf
+  nodes: CategoryNode[];
 };
 
 export type ProductPrice = {
