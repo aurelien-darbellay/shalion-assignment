@@ -13,11 +13,9 @@ export async function createMercadonaNavigator(
   const mercadonaClient = createMercadonaClient();
   const warehouse = await resolveWarehouse(mercadonaClient, postalCode);
   const algoliaClient = createMercadonaAlgoliaClient(warehouse);
-  mercadonaNavigator = new MercadonaNavigator(
+  return (mercadonaNavigator = new MercadonaNavigator(
     mercadonaClient,
     algoliaClient,
     warehouse,
-  );
-
-  return mercadonaNavigator;
+  ));
 }
