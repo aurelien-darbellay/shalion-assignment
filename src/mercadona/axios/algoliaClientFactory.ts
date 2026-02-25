@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { MERCADONA_INFO } from "../config/mercadonaInfo";
+import { MERCADONA_INFO } from "../config/mercadonaInfo.js";
 
 function assertAlgoliaKeys() {
   const { appId, apiKey, agent } = MERCADONA_INFO.algoliaKeys;

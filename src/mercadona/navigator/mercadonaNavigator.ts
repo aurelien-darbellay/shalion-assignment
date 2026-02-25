@@ -1,14 +1,14 @@
 import { AxiosInstance } from "axios";
-import { QueryOptions } from "../domain/queryOptions";
-import { createAlgoliaSearchRequest } from "./query/algoliaSearchRequest";
-import { MercadonaProductListPage } from "../domain/mercadonaProductListPage";
-import { mapAlgoliaResponseToMercadonaProductListPage } from "./mappers/mapAlgoliaResponseToProductListPage";
-import { MERCADONA_INFO } from "../config/mercadonaInfo";
-import { mapSingleProductReponseToDomain } from "./mappers/mapSingleProductResponseToDomain";
-import { MercadonaProduct } from "../domain/mercadonaProduct";
-import { MercadonaProductListItem } from "../domain/mercadonaProductListItem";
-import { mapAssociatedProductResponseToDomain } from "./mappers/mapAssociatedProductResponseToDomain";
-import { MercadonaProductPage } from "../domain/mercadonaProductPage";
+import { QueryOptions } from "../domain/queryOptions.js";
+import { createAlgoliaSearchRequest } from "./query/algoliaSearchRequest.js";
+import { MercadonaProductListPage } from "../domain/mercadonaProductListPage.js";
+import { mapAlgoliaResponseToMercadonaProductListPage } from "./mappers/mapAlgoliaResponseToProductListPage.js";
+import { MERCADONA_INFO } from "../config/mercadonaInfo.js";
+import { mapSingleProductReponseToDomain } from "./mappers/mapSingleProductResponseToDomain.js";
+import { MercadonaProduct } from "../domain/mercadonaProduct.js";
+import { MercadonaProductListItem } from "../domain/mercadonaProductListItem.js";
+import { mapAssociatedProductResponseToDomain } from "./mappers/mapAssociatedProductResponseToDomain.js";
+import { MercadonaProductPage } from "../domain/mercadonaProductPage.js";
 
 export class MercadonaNavigator {
   private readonly mercadonaClient: AxiosInstance;

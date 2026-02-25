@@ -1,5 +1,5 @@
-import { CategoryPath } from "./embeddedTypes";
-import { ProductPrice } from "./embeddedTypes";
+import { CategoryPath } from "./embeddedTypes.js";
+import { ProductPrice } from "./embeddedTypes.js";
 
 export type MercadonaProduct = {
   id: string;

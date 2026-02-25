@@ -1,9 +1,9 @@
-import { ProductPrice } from "../../domain/embeddedTypes";
-import { MercadonaProduct } from "../../domain/mercadonaProduct";
-import { MercadonaProductListItem } from "../../domain/mercadonaProductListItem";
-import { MercadonaProductListPage } from "../../domain/mercadonaProductListPage";
-import { QueryOptions } from "../../domain/queryOptions";
-import { extractCategoryPaths } from "./extractCategoryPaths";
+import { ProductPrice } from "../../domain/embeddedTypes.js";
+import { MercadonaProduct } from "../../domain/mercadonaProduct.js";
+import { MercadonaProductListItem } from "../../domain/mercadonaProductListItem.js";
+import { MercadonaProductListPage } from "../../domain/mercadonaProductListPage.js";
+import { QueryOptions } from "../../domain/queryOptions.js";
+import { extractCategoryPaths } from "./extractCategoryPaths.js";
 
 export function mapAlgoliaResponseToMercadonaProductListPage(
   algoliaResponse: any,

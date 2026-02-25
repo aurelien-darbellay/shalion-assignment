@@ -1,8 +1,8 @@
 import { AxiosInstance } from "axios";
-import { MercadonaNavigator } from "../mercadonaNavigator";
-import { resolveWarehouse } from "./warehouseResolver";
-import { createMercadonaClient } from "../../axios/mercadonaClient";
-import { createMercadonaAlgoliaClient } from "../../axios/algoliaClientFactory";
+import { MercadonaNavigator } from "../mercadonaNavigator.js";
+import { resolveWarehouse } from "./warehouseResolver.js";
+import { createMercadonaClient } from "../../axios/mercadonaClient.js";
+import { createMercadonaAlgoliaClient } from "../../axios/algoliaClientFactory.js";
 
 export type AlgoliaClientFactory = (warehouse: string) => AxiosInstance;
 

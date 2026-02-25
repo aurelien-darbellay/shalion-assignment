@@ -1,4 +1,4 @@
-import { QueryOptions } from "../../domain/queryOptions";
+import { QueryOptions } from "../../domain/queryOptions.js";
 
 export type AlgoliaSearchRequest = {
   query?: string;

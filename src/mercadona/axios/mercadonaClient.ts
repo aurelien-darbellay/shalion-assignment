@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, CreateAxiosDefaults } from "axios";
-import { MERCADONA_INFO } from "../config/mercadonaInfo";
+import { MERCADONA_INFO } from "../config/mercadonaInfo.js";
 
 export const createMercadonaClient = (
   config?: CreateAxiosDefaults,

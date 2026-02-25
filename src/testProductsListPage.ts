@@ -1,5 +1,5 @@
-import { QueryOptionsBuilder } from "./mercadona/domain/queryOptions";
-import { MercadonaNavigator } from "./mercadona/navigator/mercadonaNavigator";
+import { QueryOptionsBuilder } from "./mercadona/domain/queryOptions.js";
+import { MercadonaNavigator } from "./mercadona/navigator/mercadonaNavigator.js";
 
 export async function testProductsListPage(navigator: MercadonaNavigator) {
   const query = QueryOptionsBuilder.builder().withSearchQuery("leche").build();

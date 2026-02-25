@@ -1,8 +1,8 @@
-import { MercadonaProductListItem } from "./mercadonaProductListItem";
-import { QueryOptions } from "./queryOptions";
-import { CategoryTreeNode } from "./embeddedTypes";
-import { buildCategoryTreeFromPaths } from "./helpers/buildCategoryTreeFromItems";
-import { MercadonaProduct } from "./mercadonaProduct";
+import { MercadonaProductListItem } from "./mercadonaProductListItem.js";
+import { QueryOptions } from "./queryOptions.js";
+import { CategoryTreeNode } from "./embeddedTypes.js";
+import { buildCategoryTreeFromPaths } from "./helpers/buildCategoryTreeFromItems.js";
+import { MercadonaProduct } from "./mercadonaProduct.js";
 
 export class MercadonaProductListPage {
   private readonly _categoryTree: CategoryTreeNode[];

@@ -1,5 +1,5 @@
-import { CategoryPath } from "../embeddedTypes";
-import { CategoryTreeNode } from "../embeddedTypes";
+import { CategoryPath } from "../embeddedTypes.js";
+import { CategoryTreeNode } from "../embeddedTypes.js";
 
 export function buildCategoryTreeFromPaths(
   paths: CategoryPath[],

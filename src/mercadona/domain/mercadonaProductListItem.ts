@@ -1,4 +1,4 @@
-import { MercadonaProduct } from "./mercadonaProduct";
+import { MercadonaProduct } from "./mercadonaProduct.js";
 
 export type MercadonaProductListItem = {
   product: MercadonaProduct;

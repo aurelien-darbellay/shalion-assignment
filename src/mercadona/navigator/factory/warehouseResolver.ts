@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { MERCADONA_INFO } from "../../config/mercadonaInfo";
+import { MERCADONA_INFO } from "../../config/mercadonaInfo.js";
 
 export async function resolveWarehouse(
   mercadonaClient: AxiosInstance,

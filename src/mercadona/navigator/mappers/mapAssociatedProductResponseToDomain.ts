@@ -1,4 +1,4 @@
-import { MercadonaProductListItem } from "../../domain/mercadonaProductListItem";
+import { MercadonaProductListItem } from "../../domain/mercadonaProductListItem.js";
 
 export function mapAssociatedProductResponseToDomain(
   data: any,

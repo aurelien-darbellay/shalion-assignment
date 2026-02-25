@@ -1,5 +1,5 @@
-import { MercadonaProduct } from "./mercadonaProduct";
-import { MercadonaProductListItem } from "./mercadonaProductListItem";
+import { MercadonaProduct } from "./mercadonaProduct.js";
+import { MercadonaProductListItem } from "./mercadonaProductListItem.js";
 
 export class MercadonaProductPage {
   private start = 0; // zero-based internally

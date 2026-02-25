@@ -1,4 +1,4 @@
-import { MercadonaNavigator } from "./mercadona/navigator/mercadonaNavigator";
+import { MercadonaNavigator } from "./mercadona/navigator/mercadonaNavigator.js";
 
 export async function testProductPage(navigator: MercadonaNavigator) {
   const productId = 26029;

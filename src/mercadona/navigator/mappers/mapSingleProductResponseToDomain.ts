@@ -1,5 +1,5 @@
-import { MercadonaProduct } from "../../domain/mercadonaProduct";
-import { extractCategoryPaths } from "./extractCategoryPaths";
+import { MercadonaProduct } from "../../domain/mercadonaProduct.js";
+import { extractCategoryPaths } from "./extractCategoryPaths.js";
 
 export function mapSingleProductReponseToDomain(data: any): MercadonaProduct {
   return {

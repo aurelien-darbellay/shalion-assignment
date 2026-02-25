@@ -1,4 +1,4 @@
-import { CategoryNode, CategoryPath } from "../../domain/embeddedTypes";
+import { CategoryNode, CategoryPath } from "../../domain/embeddedTypes.js";
 export function extractCategoryPaths(rawCategories: any): CategoryPath[] {
   if (!Array.isArray(rawCategories)) return [];
 
