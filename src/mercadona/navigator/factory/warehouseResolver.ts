@@ -15,7 +15,6 @@ export async function resolveWarehouse(
       `Error resolving warehouse for postal code ${postalCode}: ${error.response.data.error_msg}`,
     );
   }
-
   const warehouse = response.headers[MERCADONA_INFO.warehouse.header];
   if (!warehouse) {
     throw new Error("Warehouse header not found in response");
