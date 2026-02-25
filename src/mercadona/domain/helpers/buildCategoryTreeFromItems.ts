@@ -5,8 +5,6 @@ export function buildCategoryTreeFromPaths(
   paths: CategoryPath[],
 ): CategoryTreeNode[] {
   const roots: CategoryTreeNode[] = [];
-
-  // child index per parent ("root" for top-level)
   const childrenIndex = new Map<
     number | "root",
     Map<number, CategoryTreeNode>
@@ -27,22 +25,17 @@ export function buildCategoryTreeFromPaths(
 
     for (const node of path.nodes) {
       const siblings = getChildrenMap(parentKey);
-
       let treeNode = siblings.get(node.id);
       if (!treeNode) {
         treeNode = { ...node, children: [] };
         siblings.set(node.id, treeNode);
-
         if (parentNode) parentNode.children.push(treeNode);
         else roots.push(treeNode);
       }
-
       parentNode = treeNode;
       parentKey = treeNode.id;
     }
   }
-
-  // optional: sort once at the end
   sortTree(roots);
   return roots;
 }
