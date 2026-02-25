@@ -12,11 +12,6 @@ export type CategoryPath = {
 export type ProductPrice = {
   unitPrice: number;
   quantity: number;
-  quantityUnit: string;
-  isApproximate: boolean;
-  referencePrice?: number;
-  referenceUnit?: string;
-  taxPercentage?: number;
 };
 
 export type CategoryTreeNode = {
