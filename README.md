@@ -1,0 +1,322 @@
+# Shalion Mercadona Navigator
+
+A TypeScript-based API client and navigator for interacting with Mercadona's online store (tienda.mercadona.es). This project provides a clean, type-safe interface for searching products, retrieving product details, and navigating through associated products.
+
+## 🚀 Features
+
+- **Product Search**: Search for products using Mercadona's Algolia search API with advanced filtering capabilities
+- **Category Filtering**: Filter products by category hierarchy (multi-level support)
+- **Brand Filtering**: Filter products by one or multiple brands
+- **Product Details**: Retrieve detailed information about specific products
+- **Associated Products**: Get related/cross-selling products with pagination support
+- **Warehouse Resolution**: Automatically resolves the correct warehouse based on postal code
+- **Category Tree Building**: Automatically constructs category trees from search results
+- **Type-Safe**: Built with TypeScript for full type safety
+
+## 📋 Prerequisites
+
+- Node.js (v18 or higher recommended)
+- npm
+
+## 🛠️ Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd shalion-Darbellay
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create a `.env` file in the root directory with the following variables:
+
+```env
+# Algolia API credentials for Mercadona
+MERCADONA_ALGIOLA_APP_ID="7UZJKL1DJ0"
+MERCADONA_ALGIOLA_API_KEY="9d8f2e39e90df472b4f2e559a116fe17"
+MERCADONA_ALGIOLA_AGENT="Algolia for JavaScript (5.49.0); Search (5.49.0); Browser"
+
+# Other configuration
+REQUEST_TIMEOUT=5000
+USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+```
+
+## 🚦 Usage
+
+### Running the Demo
+
+The project includes demonstration scripts that show the main features:
+
+```bash
+# Run in development mode
+npm run dev
+
+# Build the project
+npm run build
+
+# Run the built version
+npm start
+
+# Type check without building
+npm run typecheck
+```
+
+### Basic Usage Examples
+
+#### 1. Creating a Navigator Instance
+
+```typescript
+import { createMercadonaNavigator } from "./mercadona/navigator/factory/navigatorFactory";
+
+// Create a navigator for Barcelona (postal code 08024)
+const navigator = await createMercadonaNavigator("08024");
+```
+
+#### 2. Searching for Products
+
+```typescript
+import { QueryOptionsBuilder } from "./mercadona/domain/queryOptions";
+
+// Simple search
+const query = QueryOptionsBuilder.builder().withSearchQuery("leche").build();
+
+const productsPage = await navigator.getProducts(query);
+
+// Access results
+console.log(`Total hits: ${productsPage.totalHits}`);
+console.log(`Page ${productsPage.pageIndex + 1} of ${productsPage.pageCount}`);
+productsPage.items.forEach((item) => {
+  console.log(`${item.product.name} - ${item.product.price.quantity}€`);
+});
+```
+
+#### 3. Advanced Search with Filters
+
+```typescript
+// Search with category and brand filters
+const refinedQuery = QueryOptionsBuilder.builder()
+  .withSearchQuery("leche")
+  .withCategory(categoryId, categoryLevel)
+  .addBrandName("Hacendado")
+  .addBrandName("Central Lechera")
+  .build();
+
+const refinedResults = await navigator.getProducts(refinedQuery);
+```
+
+#### 4. Getting Product Details
+
+```typescript
+// Get detailed product information
+const productId = 26029;
+const product = await navigator.getProductById(productId);
+
+console.log(`Name: ${product.name}`);
+console.log(`Brand: ${product.brand}`);
+console.log(`Price: ${product.price.unitPrice}€`);
+console.log(`Product URL: ${product.productUrl}`);
+```
+
+#### 5. Working with Product Pages (Associated Products)
+
+```typescript
+// Get a product page with associated products
+const productPage = await navigator.getProductPage(productId);
+
+console.log(`Main product: ${productPage.product.name}`);
+console.log(
+  `Total associated products: ${productPage.associatedProducts.length}`,
+);
+
+// View paginated associated products (5 items per page)
+console.log("First page of associated products:");
+productPage.visibleItems.forEach((item) => {
+  console.log(`- ${item.product.name} (${item.product.price.unitPrice}€)`);
+});
+
+// Navigate to next page
+productPage.next();
+console.log("Second page of associated products:");
+productPage.visibleItems.forEach((item) => {
+  console.log(`- ${item.product.name} (${item.product.price.unitPrice}€)`);
+});
+
+// Navigate back
+productPage.previous();
+```
+
+#### 6. Exploring Category Trees
+
+```typescript
+const productsPage = await navigator.getProducts(query);
+
+// Get the category tree from search results
+productsPage.categoryTree.forEach((category) => {
+  console.log(`${category.name} (ID: ${category.id})`);
+  category.children.forEach((subcategory) => {
+    console.log(`  └─ ${subcategory.name} (ID: ${subcategory.id})`);
+  });
+});
+```
+
+#### 7. Filtering by Brand
+
+```typescript
+const productsPage = await navigator.getProducts(query);
+
+// Get all brands on the current page
+console.log("Available brands:", productsPage.brandsOnPage);
+
+// Filter products by brand
+const hacendadoProducts = productsPage.getProductsByBrand("Hacendado");
+console.log(`Found ${hacendadoProducts.length} Hacendado products`);
+```
+
+## 📁 Project Structure
+
+```
+shalion-Darbellay/
+├── src/
+│   ├── index.ts                     # Main entry point
+│   ├── testProductsListPage.ts      # Demo: Product search
+│   ├── testProductPage.ts           # Demo: Product details
+│   └── mercadona/
+│       ├── axios/
+│       │   ├── algoliaClientFactory.ts    # Algolia HTTP client factory
+│       │   └── mercadonaClient.ts         # Mercadona HTTP client factory
+│       ├── config/
+│       │   └── mercadonaInfo.ts     # API endpoints and configuration
+│       ├── domain/
+│       │   ├── embeddedTypes.ts     # Shared type definitions
+│       │   ├── queryOptions.ts      # Search query builder
+│       │   ├── mercadonaProduct.ts  # Product domain model
+│       │   ├── mercadonaProductListItem.ts
+│       │   ├── mercadonaProductListPage.ts
+│       │   ├── mercadonaProductPage.ts
+│       │   └── helpers/
+│       │       └── buildCategoryTreeFromItems.ts
+│       └── navigator/
+│           ├── mercadonaNavigator.ts      # Main navigator class
+│           ├── factory/
+│           │   ├── navigatorFactory.ts    # Navigator factory
+│           │   └── warehouseResolver.ts   # Postal code to warehouse resolver
+│           ├── query/
+│           │   └── algoliaSearchRequest.ts
+│           └── mappers/
+│               ├── extractCategoryPaths.ts
+│               ├── mapAlgoliaResponseToProductListPage.ts
+│               ├── mapSingleProductResponseToDomain.ts
+│               └── mapAssociatedProductResponseToDomain.ts
+├── package.json
+├── tsconfig.json
+└── .env
+```
+
+## 🏗️ Architecture
+
+### Domain Models
+
+- **MercadonaProduct**: Represents a product with all its details (name, brand, price, categories, etc.)
+- **MercadonaProductListItem**: Wraps a product with its position and score in search results
+- **MercadonaProductListPage**: Represents a paginated list of products with category tree and filtering capabilities
+- **MercadonaProductPage**: Represents a product detail page with paginated associated products
+- **QueryOptions**: Defines search parameters (query text, category filters, brand filters)
+
+### Key Components
+
+#### MercadonaNavigator
+
+The main interface for interacting with Mercadona's API. It provides methods to:
+
+- Search for products
+- Get product details by ID
+- Retrieve associated products
+- Build complete product pages
+
+#### QueryOptionsBuilder
+
+A builder pattern implementation for constructing search queries:
+
+- Fluent API for easy query construction
+- Support for search text, category filtering, and brand filtering
+- Type-safe query building
+
+#### Warehouse Resolution
+
+Automatically determines the correct warehouse based on postal code, ensuring accurate product availability and pricing for the user's location.
+
+### HTTP Clients
+
+- **Mercadona Client**: Configured for direct API calls to tienda.mercadona.es
+- **Algolia Client**: Configured for product search via Mercadona's Algolia integration
+
+## 🔧 Configuration
+
+The project uses environment variables for configuration. See `.env` file for:
+
+- **MERCADONA_ALGIOLA_APP_ID**: Algolia application ID
+- **MERCADONA_ALGIOLA_API_KEY**: Algolia API key
+- **MERCADONA_ALGIOLA_AGENT**: Algolia agent string
+- **REQUEST_TIMEOUT**: HTTP request timeout in milliseconds (default: 5000)
+- **USER_AGENT**: Custom User-Agent header for requests (default: "ShalionBot/1.0")
+
+## 📊 API Endpoints Used
+
+- **Warehouse Resolution**: `PUT /api/postal-codes/actions/change-pc/`
+- **Product Search**: Algolia search API (`products_prod_{warehouse}_es`)
+- **Product Details**: `GET /api/products/{id}/?lang=es&wh={warehouse}`
+- **Associated Products**: `GET /api/products/{id}/xselling/?lang=es&wh={warehouse}`
+
+## 🧪 Testing
+
+The project includes two main test scenarios:
+
+1. **testProductsListPage**: Demonstrates product search, filtering, and category exploration
+2. **testProductPage**: Demonstrates product details retrieval and associated products pagination
+
+Run tests with:
+
+```bash
+npm run dev
+```
+
+## 📝 Type Safety
+
+The project is built with strict TypeScript configuration:
+
+- Strict type checking enabled
+- No implicit any
+- Full ES2022 support
+- Source maps for debugging
+
+## 🤝 Contributing
+
+This project appears to be part of a Shalion assignment. For contributions:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes with proper TypeScript types
+4. Ensure `npm run typecheck` passes
+5. Submit a pull request
+
+## 📄 License
+
+Private project for Shalion assignment.
+
+## 🙏 Acknowledgments
+
+- Mercadona for their public API
+- Algolia for search infrastructure
+
+## 📞 Support
+
+For questions or issues related to this assignment, please contact Shalion.
+
+---
+
+**Note**: This project is for educational/assignment purposes. Ensure you comply with Mercadona's terms of service when using their APIs.
