@@ -23,7 +23,7 @@ A TypeScript-based API client and navigator for interacting with Mercadona's onl
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/aurelien-darbellay/shalion-assignment.git
 cd shalion-Darbellay
 ```
 
@@ -109,10 +109,10 @@ const refinedQuery = QueryOptionsBuilder.builder()
 const refinedResults = await navigator.getProducts(refinedQuery);
 ```
 
-#### 4. Getting Product Details
+#### 4. Getting Product By Id
 
 ```typescript
-// Get detailed product information
+// Get product information by ID
 const productId = 26029;
 const product = await navigator.getProductById(productId);
 
@@ -184,7 +184,7 @@ shalion-Darbellay/
 ├── src/
 │   ├── index.ts                     # Main entry point
 │   ├── testProductsListPage.ts      # Demo: Product search
-│   ├── testProductPage.ts           # Demo: Product details
+│   ├── testProductPage.ts           # Demo: Single Product Page
 │   └── mercadona/
 │       ├── axios/
 │       │   ├── algoliaClientFactory.ts    # Algolia HTTP client factory
@@ -223,7 +223,7 @@ shalion-Darbellay/
 
 - **MercadonaProduct**: Represents a product with all its details (name, brand, price, categories, etc.)
 - **MercadonaProductListItem**: Wraps a product with its position and score in search results
-- **MercadonaProductListPage**: Represents a paginated list of products with category tree and filtering capabilities
+- **MercadonaProductListPage**: Represents a search result page with list of products, and facetFilters (category tree + list of brands)
 - **MercadonaProductPage**: Represents a product detail page with paginated associated products
 - **QueryOptions**: Defines search parameters (query text, category filters, brand filters)
 
@@ -252,7 +252,7 @@ Automatically determines the correct warehouse based on postal code, ensuring ac
 
 ### HTTP Clients
 
-- **Mercadona Client**: Configured for direct API calls to tienda.mercadona.es
+- **Mercadona Client**: Configured for direct API calls to tienda.mercadona.es/api
 - **Algolia Client**: Configured for product search via Mercadona's Algolia integration
 
 ## 🔧 Configuration
@@ -267,10 +267,10 @@ The project uses environment variables for configuration. See `.env` file for:
 
 ## 📊 API Endpoints Used
 
-- **Warehouse Resolution**: `PUT /api/postal-codes/actions/change-pc/`
+- **Warehouse Resolution**: `PUT /postal-codes/actions/change-pc/`
 - **Product Search**: Algolia search API (`products_prod_{warehouse}_es`)
-- **Product Details**: `GET /api/products/{id}/?lang=es&wh={warehouse}`
-- **Associated Products**: `GET /api/products/{id}/xselling/?lang=es&wh={warehouse}`
+- **Product Details**: `GET /products/{id}/?lang=es&wh={warehouse}`
+- **Associated Products**: `GET /products/{id}/xselling/?lang=es&wh={warehouse}`
 
 ## 🧪 Testing
 
@@ -292,31 +292,3 @@ The project is built with strict TypeScript configuration:
 - Strict type checking enabled
 - No implicit any
 - Full ES2022 support
-- Source maps for debugging
-
-## 🤝 Contributing
-
-This project appears to be part of a Shalion assignment. For contributions:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes with proper TypeScript types
-4. Ensure `npm run typecheck` passes
-5. Submit a pull request
-
-## 📄 License
-
-Private project for Shalion assignment.
-
-## 🙏 Acknowledgments
-
-- Mercadona for their public API
-- Algolia for search infrastructure
-
-## 📞 Support
-
-For questions or issues related to this assignment, please contact Shalion.
-
----
-
-**Note**: This project is for educational/assignment purposes. Ensure you comply with Mercadona's terms of service when using their APIs.
