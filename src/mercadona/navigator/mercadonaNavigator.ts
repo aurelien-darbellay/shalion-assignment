@@ -1,6 +1,8 @@
 import { AxiosInstance } from "axios";
 import { QueryOptions } from "../domain/queryOptions";
 import { createAlgoliaSearchRequest } from "./query/algoliaSearchRequest";
+import { MercadonaProductListPage } from "../domain/mercadonaProductListPage";
+import { mapAlgoliaResponseToMercadonaProductListPage } from "./query/mapResponseToProductListPage";
 
 export class MercadonaNavigator {
   private readonly mercadonaClient: AxiosInstance;
@@ -28,8 +30,13 @@ export class MercadonaNavigator {
     return this.zipCode;
   }
 
-  getProducts(options: QueryOptions) {
+  async getProducts(options: QueryOptions): Promise<MercadonaProductListPage> {
     const request = createAlgoliaSearchRequest(options);
-    return this.algoliaClient.post("", request);
+    const response = await this.algoliaClient.post("", request);
+    return mapAlgoliaResponseToMercadonaProductListPage(response.data, {
+      query: options,
+      zipCode: this.zipCode,
+      warehouse: this.warehouse,
+    });
   }
 }

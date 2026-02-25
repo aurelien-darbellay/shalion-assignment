@@ -10,15 +10,15 @@ export type AlgoliaSearchRequest = {
 export function createAlgoliaSearchRequest(
   options: QueryOptions,
 ): AlgoliaSearchRequest {
-  const facePath = buildCategoryFacetPath(
-    options.category.level,
-    options.category.id,
-  );
   const request: AlgoliaSearchRequest = {
     query: options.searchQuery,
-    facetFilters: [facePath],
     getRankingInfo: true,
   };
+  if (options.category) {
+    request.facetFilters = [
+      buildCategoryFacetPath(options.category.level, options.category.id),
+    ];
+  }
   if (options.brands) {
     request.filters = formatBrandFilter(options.brands);
   }
@@ -26,7 +26,7 @@ export function createAlgoliaSearchRequest(
 }
 
 function buildCategoryFacetPath(depth: number, categoryId: number): string {
-  if (!Number.isInteger(depth) || depth <= 0) {
+  if (!Number.isInteger(depth) || depth < 0) {
     throw new Error(`Invalid depth: ${depth}`);
   }
   if (!Number.isInteger(categoryId) || categoryId <= 0) {

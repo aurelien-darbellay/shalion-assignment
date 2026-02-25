@@ -11,7 +11,7 @@ export type QueryOptions = {
 
 export class QueryOptionsBuilder {
   private searchQuery: string = "";
-  private category: CategoryInQuery = { id: 0, level: 0 };
+  private category: CategoryInQuery | null = null;
   private brands: string[] = [];
 
   static builder(): QueryOptionsBuilder {
@@ -23,13 +23,8 @@ export class QueryOptionsBuilder {
     return this;
   }
 
-  withCategoryId(categoryId: number): this {
-    this.category.id = categoryId;
-    return this;
-  }
-
-  withCategoryLevel(categoryLevel: number): this {
-    this.category.level = categoryLevel;
+  withCategory(categoryId: number, categoryLevel: number): this {
+    this.category = { id: categoryId, level: categoryLevel };
     return this;
   }
 

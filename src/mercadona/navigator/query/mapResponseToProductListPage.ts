@@ -64,13 +64,13 @@ function extractCategoryPaths(rawCategories: any): CategoryPath[] {
 
   const paths: CategoryPath[] = [];
 
-  const dfs = (node: any, acc: CategoryNode[]) => {
+  const buildPath = (node: any, acc: CategoryNode[]) => {
     if (!node) return;
     const current: CategoryNode = {
-      id: asInt(node.id, 0),
+      id: node.id,
       name: String(node.name ?? ""),
-      level: asInt(node.level, acc.length), // fallback to depth if missing
-      order: asInt(node.order, 0),
+      level: node.level ?? acc.length,
+      order: node.order ?? null,
     };
     const nextAcc = [...acc, current];
     const children = Array.isArray(node.categories) ? node.categories : [];
@@ -78,10 +78,10 @@ function extractCategoryPaths(rawCategories: any): CategoryPath[] {
       paths.push({ nodes: nextAcc });
       return;
     }
-    for (const child of children) dfs(child, nextAcc);
+    for (const child of children) buildPath(child, nextAcc);
   };
 
-  for (const root of rawCategories) dfs(root, []);
+  for (const root of rawCategories) buildPath(root, []);
   return paths
     .map((p) => ({
       nodes: p.nodes.filter((n) => n.id > 0 && n.name.length > 0),
