@@ -1,4 +1,6 @@
 import { AxiosInstance } from "axios";
+import { QueryOptions } from "../domain/queryOptions";
+import { createAlgoliaSearchRequest } from "./query/algoliaSearchRequest";
 
 export class MercadonaNavigator {
   private readonly mercadonaClient: AxiosInstance;
@@ -18,7 +20,8 @@ export class MercadonaNavigator {
   getWarehouse(): string {
     return this.warehouse;
   }
-  getProducts(searchQuery: string) {
-    return this.algoliaClient.post("", { query: searchQuery });
+  getProducts(options: QueryOptions) {
+    const request = createAlgoliaSearchRequest(options);
+    return this.algoliaClient.post("", request);
   }
 }
