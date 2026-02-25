@@ -1,12 +1,18 @@
+export type Category = {
+  id: number;
+  name: string;
+  level: number;
+};
+
 export type QueryOptions = {
   searchQuery: string;
-  categoryId: number;
+  category: Category;
   brandName: string;
 };
 
 export class QueryOptionsBuilder {
   private searchQuery: string = "";
-  private categoryId: number = 0;
+  private category: Category = { id: 0, name: "", level: 1 };
   private brandName: string = "";
 
   static builder(): QueryOptionsBuilder {
@@ -19,7 +25,12 @@ export class QueryOptionsBuilder {
   }
 
   withCategoryId(categoryId: number): this {
-    this.categoryId = categoryId;
+    this.category.id = categoryId;
+    return this;
+  }
+
+  withCategoryLevel(categoryLevel: number): this {
+    this.category.level = categoryLevel;
     return this;
   }
 
@@ -31,7 +42,7 @@ export class QueryOptionsBuilder {
   build(): QueryOptions {
     return {
       searchQuery: this.searchQuery,
-      categoryId: this.categoryId,
+      category: this.category,
       brandName: this.brandName,
     };
   }
