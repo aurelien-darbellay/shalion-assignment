@@ -182,7 +182,7 @@ console.log(`Found ${hacendadoProducts.length} Hacendado products`);
 ```
 shalion-Darbellay/
 ├── src/
-│   ├── index.ts                     # Main entry point
+│   ├── demo.ts                     # Demo entry point
 │   ├── testProductsListPage.ts      # Demo: Product search
 │   ├── testProductPage.ts           # Demo: Single Product Page
 │   └── mercadona/
