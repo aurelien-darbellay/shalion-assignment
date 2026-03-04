@@ -9,14 +9,13 @@ export type AlgoliaClientFactory = (warehouse: string) => AxiosInstance;
 export async function createMercadonaNavigator(
   zipCode: string,
 ): Promise<MercadonaNavigator> {
-  let mercadonaNavigator: MercadonaNavigator;
   const mercadonaClient = createMercadonaClient();
   const warehouse = await resolveWarehouse(mercadonaClient, zipCode);
   const algoliaClient = createMercadonaAlgoliaClient(warehouse);
-  return (mercadonaNavigator = new MercadonaNavigator(
+  return new MercadonaNavigator(
     mercadonaClient,
     algoliaClient,
     warehouse,
     zipCode,
-  ));
+  );
 }
