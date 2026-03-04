@@ -33,8 +33,6 @@ export function createMercadonaAlgoliaClient(warehouse: string): AxiosInstance {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    timeout: process.env.REQUEST_TIMEOUT
-      ? parseInt(process.env.REQUEST_TIMEOUT)
-      : 5000,
+    timeout: 5000,
   });
 }
