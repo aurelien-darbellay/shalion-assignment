@@ -19,7 +19,7 @@ export function createAlgoliaSearchRequest(
       buildCategoryFacetPath(options.category.level, options.category.id),
     ];
   }
-  if (options.brands) {
+  if (options.brands && options.brands.length > 0) {
     request.filters = formatBrandFilter(options.brands);
   }
   return request;
